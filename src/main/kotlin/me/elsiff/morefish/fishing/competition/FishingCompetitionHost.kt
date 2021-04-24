@@ -1,8 +1,10 @@
 package me.elsiff.morefish.fishing.competition
 
+import github.scarsz.discordsrv.dependencies.jda.api.entities.TextChannel
 import me.elsiff.morefish.configuration.Config
 import me.elsiff.morefish.configuration.ConfigurationSectionAccessor
 import me.elsiff.morefish.configuration.Lang
+import me.elsiff.morefish.hooker.DiscordSRVHooker
 import me.elsiff.morefish.util.NumberUtils
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
@@ -15,6 +17,7 @@ import kotlin.math.min
  */
 class FishingCompetitionHost(
     private val plugin: Plugin,
+    private val discordSRVHooker: DiscordSRVHooker,
     val competition: FishingCompetition
 ) {
     private val timerBarHandler: FishingCompetitionTimerBarHandler = FishingCompetitionTimerBarHandler(plugin)
@@ -22,6 +25,16 @@ class FishingCompetitionHost(
 
     private val msgConfig: ConfigurationSectionAccessor
         get() = Config.standard["messages"]
+
+    private val discordConfig: ConfigurationSectionAccessor
+        get() = Config.standard["discord.contest"]
+    private val discordChannel: TextChannel
+        get() {
+            check(discordSRVHooker.hasHooked) { "DiscordSRV must be hooked for DiscordSRV feature" }
+            return discordSRVHooker.discordSRV.getDestinationTextChannelForGameChannelName(discordConfig.string("channel"))
+        }
+    private val embed: Embed
+        get() = Config.embedLoader.loadFrom(discordConfig, "embed")
 
     val prizes: Map<IntRange, Prize>
         get() = Config.prizeMapLoader.loadFrom(Config.standard, "contest-prizes")
@@ -71,11 +84,11 @@ class FishingCompetitionHost(
         }
         if (!suspend) {
             if (prizes.isNotEmpty()) {
-                val ranking = competition.ranking
+                val ranking: List<Record> = competition.ranking
                 for ((range, prize) in prizes) {
                     val rangeInIndex = IntRange(
-                        start = range.start - 1,
-                        endInclusive = min(range.endInclusive - 1, ranking.lastIndex)
+                        start = range.first - 1,
+                        endInclusive = min(range.last - 1, ranking.lastIndex)
                     )
                     for (record in ranking.slice(rangeInIndex)) {
                         val rankNumber = competition.rankNumberOf(record)
@@ -90,6 +103,11 @@ class FishingCompetitionHost(
                 }
             }
         }
+
+        if (discordConfig.boolean("enabled")) {
+            embed.sendMessage(discordChannel, competition.ranking)
+        }
+
         if (!Config.standard.boolean("general.save-records")) {
             competition.clearRecords()
         }

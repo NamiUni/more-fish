@@ -101,9 +101,11 @@ class FishShopGui(
     private fun updatePriceIcon(price: Double = totalPrice) {
         val emeraldIcon = ItemStack(Material.EMERALD)
         emeraldIcon.edit<ItemMeta> {
-            setDisplayName(Lang.format("shop-emerald-icon-name")
-                .replace("%price%" to price.toString())
-                .output())
+            setDisplayName(
+                Lang.format("shop-emerald-icon-name")
+                    .replace("%price%" to price.toString())
+                    .output()
+            )
         }
         inventory.setItem(priceIconSlot, emeraldIcon)
     }

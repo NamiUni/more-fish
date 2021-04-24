@@ -20,6 +20,7 @@ import me.elsiff.morefish.hooker.McmmoHooker
 import me.elsiff.morefish.hooker.PlaceholderApiHooker
 import me.elsiff.morefish.hooker.VaultHooker
 import me.elsiff.morefish.hooker.WorldGuardHooker
+import me.elsiff.morefish.hooker.DiscordSRVHooker
 import me.elsiff.morefish.item.FishItemStackConverter
 import me.elsiff.morefish.shop.FishShop
 import me.elsiff.morefish.shop.FishShopSignListener
@@ -37,13 +38,14 @@ class MoreFish : JavaPlugin() {
     val worldGuardHooker = WorldGuardHooker()
     val citizensHooker = CitizensHooker()
     val placeholderApiHooker = PlaceholderApiHooker()
+    val discordSRVHooker = DiscordSRVHooker()
 
     val guiRegistry = GuiRegistry(this)
     val guiOpener = GuiOpener(guiRegistry)
     val oneTickScheduler = OneTickScheduler(this)
     val fishTypeTable = MutableFishTypeTable()
     val competition = FishingCompetition()
-    val competitionHost = FishingCompetitionHost(this, competition)
+    val competitionHost = FishingCompetitionHost(this, discordSRVHooker, competition)
     val autoRunner = FishingCompetitionAutoRunner(this, competitionHost)
     val converter = FishItemStackConverter(this, fishTypeTable)
     val fishShop = FishShop(guiOpener, oneTickScheduler, converter, vault)
@@ -63,6 +65,7 @@ class MoreFish : JavaPlugin() {
         worldGuardHooker.hookIfEnabled(this)
         citizensHooker.hookIfEnabled(this)
         placeholderApiHooker.hookIfEnabled(this)
+        discordSRVHooker.hookIfEnabled(this)
 
         applyConfig()
 

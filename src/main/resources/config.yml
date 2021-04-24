@@ -54,3 +54,58 @@ messages:
   show-top-on-ending: true
   contest-bar-color: 'blue'
   top-number: 3
+
+# %player% - 釣り人の名前
+# %length% - 魚のサイズ
+# %rarity% - 魚のレアリティ
+# %fish% - 魚の名前
+# %fish_with_rarity% - テキストのフォーマット "[レアリティ] [魚の名前]" (色付き)
+discord:
+  catch:
+    enabled: false
+    channel: "fishcatch"
+    embed:
+      color: "#90caf9"
+      author:
+        image-url: "http://cravatar.eu/avatar/%player%/64.png"
+        name: "%catch_fish%"
+        url: ""
+      thumbnail-url: ""
+      title:
+        text: ""
+        url: ""
+      description: ""
+      fields: []
+      image-url: ""
+      footer:
+        text: ""
+        icon-url: ""
+  contest:
+    enabled: true
+    channel: "fishcontest"
+    embed:
+      enabled: true
+      color: "#90caf9"
+      author:
+        image-url: ""
+        name: "more-fish"
+        url: "https://www.spigotmc.org/resources/morefish-improved-fishing-and-fishing-competition.22926/"
+      thumbnail-url: ""
+      title:
+        text: "Results of Fishing Competition"
+        url: ""
+      description: "First place goes to **%top_player_1%** for his %top_fish_length_1%cm %top_fish_1%! Congratulations!!"
+      fields:
+        1:
+          name: ":one: **%top_player_1%**"
+          value: "%top_fish_length_1%cm %top_fish_1%"
+        2:
+          name: ":two: %top_player_2%"
+          value: "%top_fish_length_2%cm %top_fish_2%"
+        3:
+          name: ":three: %top_player_3%"
+          value: "%top_fish_length_3%cm %top_fish_3%"
+      image-url: "https://proxy.spigotmc.org/5d37092730bd75abe75825a78345215e9ab50d7e?url=http%3A%2F%2Fi.imgur.com%2FCKXLMsP.png"
+      footer:
+        text: ""
+        icon-url: ""

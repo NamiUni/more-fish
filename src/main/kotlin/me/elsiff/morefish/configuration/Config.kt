@@ -1,7 +1,16 @@
 package me.elsiff.morefish.configuration
 
 import me.elsiff.morefish.announcement.PlayerAnnouncement
-import me.elsiff.morefish.configuration.loader.*
+import me.elsiff.morefish.configuration.loader.ChatColorLoader
+import me.elsiff.morefish.configuration.loader.EmbedLoader
+import me.elsiff.morefish.configuration.loader.EnchantmentMapLoader
+import me.elsiff.morefish.configuration.loader.PlayerAnnouncementLoader
+import me.elsiff.morefish.configuration.loader.CustomItemStackLoader
+import me.elsiff.morefish.configuration.loader.FishConditionSetLoader
+import me.elsiff.morefish.configuration.loader.FishRaritySetLoader
+import me.elsiff.morefish.configuration.loader.FishTypeMapLoader
+import me.elsiff.morefish.configuration.loader.LocalTimeListLoader
+import me.elsiff.morefish.configuration.loader.PrizeMapLoader
 import org.bukkit.plugin.Plugin
 import java.nio.file.Paths
 
@@ -23,6 +32,7 @@ object Config {
         FishTypeMapLoader(fishRaritySetLoader, customItemStackLoader, fishConditionSetLoader, playerAnnouncementLoader)
     val localTimeListLoader: LocalTimeListLoader = LocalTimeListLoader()
     val prizeMapLoader: PrizeMapLoader = PrizeMapLoader()
+    val embedLoader: EmbedLoader = EmbedLoader()
 
     val defaultCatchAnnouncement: PlayerAnnouncement
         get() = playerAnnouncementLoader.loadFrom(standard["messages"], "announce-catch")

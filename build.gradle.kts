@@ -26,6 +26,11 @@ repositories {
     maven("https://hub.spigotmc.org/nexus/content/repositories/snapshots/")
     maven("https://jitpack.io")
     maven("https://repo.codemc.org/repository/maven-public/")
+
+    // discordSRV
+    maven("https://nexus.scarsz.me/content/groups/public/")
+    maven("https://m2.dv8tion.net/releases")
+    maven("https://nexus.vankka.dev/repository/maven-public/")
 }
 
 dependencies {
@@ -44,20 +49,20 @@ dependencies {
     compileOnly("net.citizensnpcs:citizensapi:2.0.20-SNAPSHOT")
     compileOnly("me.clip:placeholderapi:2.10.9")
     compileOnly("com.gmail.nossr50.mcMMO:mcMMO:2.1.195")
+    compileOnly("com.discordsrv:discordsrv:1.22.0")
 }
 
 bukkit {
     main = mainClass
-    softDepend = listOf("Vault", "Citizens", "PlaceholderAPI", "mcMMO", "WorldGuard")
+    softDepend = listOf("Vault", "Citizens", "PlaceholderAPI", "mcMMO", "WorldGuard", "DiscordSRV")
     author = "elsiff"
     website = "https://elsiff.me"
     apiVersion = "1.16"
 }
 
 tasks {
-    ktlintFormat
     compileKotlin {
-
+        dependsOn(ktlintFormat)
         kotlinOptions.jvmTarget = "11"
     }
     compileTestKotlin {
@@ -73,5 +78,5 @@ tasks {
 }
 
 configurations {
-    ktlint
+    // ktlint
 }

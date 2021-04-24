@@ -2,7 +2,18 @@ package me.elsiff.morefish.configuration.loader
 
 import me.elsiff.morefish.configuration.ConfigurationValueAccessor
 import me.elsiff.morefish.fishing.competition.FishingCompetition
-import me.elsiff.morefish.fishing.condition.*
+import me.elsiff.morefish.fishing.condition.BiomeCondition
+import me.elsiff.morefish.fishing.condition.CompetitionCondition
+import me.elsiff.morefish.fishing.condition.EnchantmentCondition
+import me.elsiff.morefish.fishing.condition.FishCondition
+import me.elsiff.morefish.fishing.condition.LocationYCondition
+import me.elsiff.morefish.fishing.condition.McmmoSkillCondition
+import me.elsiff.morefish.fishing.condition.PotionEffectCondition
+import me.elsiff.morefish.fishing.condition.RainingCondition
+import me.elsiff.morefish.fishing.condition.ThunderingCondition
+import me.elsiff.morefish.fishing.condition.TimeCondition
+import me.elsiff.morefish.fishing.condition.WorldGuardRegionCondition
+import me.elsiff.morefish.fishing.condition.XpLevelCondition
 import me.elsiff.morefish.hooker.McmmoHooker
 import me.elsiff.morefish.hooker.WorldGuardHooker
 import me.elsiff.morefish.util.NamespacedKeyUtils
